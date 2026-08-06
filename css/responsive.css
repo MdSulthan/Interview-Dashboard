@@ -1,0 +1,317 @@
+/* ============================================
+   Interview Prep - Responsive Styles
+   ============================================ */
+
+/* Large Tablets & Small Desktops */
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .kanban-column {
+    min-width: 180px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+  .main-content {
+    padding: var(--spacing-sm);
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .welcome-section {
+    padding: var(--spacing-lg);
+  }
+
+  .welcome-greeting {
+    font-size: 1.4rem;
+  }
+
+  .nav-tabs {
+    gap: 2px;
+    position: static;
+    transform: none;
+  }
+
+  .nav-tab {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.8rem;
+  }
+
+  .nav-tab-text {
+    display: none;
+  }
+
+  .nav-tab-icon {
+    font-size: 1.2rem;
+  }
+
+  .kanban-column {
+    min-width: 160px;
+  }
+
+  .settings-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .resumes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 768px) {
+  .nav-header {
+    padding: 0 var(--spacing-md);
+    height: 56px;
+  }
+
+  .nav-brand {
+    font-size: 1.1rem;
+  }
+
+  .nav-tabs {
+    gap: 2px;
+    position: static;
+    transform: none;
+  }
+
+  .nav-tab {
+    padding: 6px 8px;
+    border-radius: var(--border-radius-xs);
+  }
+
+  .main-content {
+    padding: var(--spacing-xs);
+  }
+
+  .welcome-section {
+    padding: var(--spacing-md);
+  }
+
+  .welcome-greeting {
+    font-size: 1.25rem;
+  }
+
+  .welcome-meta {
+    gap: var(--spacing-md);
+  }
+
+  .welcome-meta-item {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+
+  .metric-card {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .metric-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+
+  .metric-value {
+    font-size: 1.1rem;
+  }
+
+  .kanban-board {
+    gap: var(--spacing-sm);
+  }
+
+  .kanban-column {
+    min-width: 160px;
+  }
+
+  .kanban-card {
+    padding: var(--spacing-sm);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .readiness-circle {
+    width: 130px;
+    height: 130px;
+  }
+
+  .readiness-percent {
+    font-size: 1.6rem;
+  }
+
+  .modal {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .modal-header {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-input {
+    min-width: unset;
+    width: 140px;
+  }
+
+  .resumes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .nav-header {
+    height: 52px;
+    padding: 0 var(--spacing-xs);
+  }
+
+  .nav-brand {
+    font-size: 1rem;
+    gap: 4px;
+  }
+
+  .nav-brand-text {
+    display: none;
+  }
+
+  .nav-tab {
+    padding: 4px 6px;
+  }
+
+  .main-content {
+    padding: var(--spacing-xs);
+  }
+
+  .welcome-section {
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .welcome-greeting {
+    font-size: 1.1rem;
+  }
+
+  .welcome-meta {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xs);
+  }
+
+  .metric-card {
+    padding: var(--spacing-sm);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+
+  .metric-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .kanban-column {
+    min-width: 150px;
+  }
+
+  .kanban-card-title {
+    font-size: 0.8rem;
+  }
+
+  .card {
+    padding: var(--spacing-sm);
+  }
+
+  .modal {
+    border-radius: var(--border-radius-sm);
+  }
+
+  .modal-title {
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .btn-lg {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .kanban-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-tabs {
+    gap: 1px;
+  }
+
+  .nav-tab {
+    padding: 4px 5px;
+  }
+
+  .nav-tab-icon {
+    font-size: 1rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .nav-header,
+  .kanban-add-btn,
+  .btn,
+  .modal-overlay {
+    display: none;
+  }
+
+  .card,
+  .kanban-card,
+  .kanban-column {
+    border: 1px solid #ccc;
+    background: white;
+  }
+}

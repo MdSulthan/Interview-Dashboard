@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0533"/>
+      <stop offset="30%" style="stop-color:#2d1b69"/>
+      <stop offset="55%" style="stop-color:#e85d04"/>
+      <stop offset="75%" style="stop-color:#fb8500"/>
+      <stop offset="100%" style="stop-color:#ffb703"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="75%" r="25%">
+      <stop offset="0%" style="stop-color:#fff3b0;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#ffb703;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <ellipse cx="960" cy="850" rx="400" ry="200" fill="url(#sun)" opacity="0.6"/>
+  <!-- Horizon line buildings silhouette -->
+  <path d="M0 750 L100 750 L100 700 L130 700 L130 720 L160 720 L160 680 L200 680 L200 750 L250 750 L250 690 L270 690 L270 650 L290 650 L290 690 L320 690 L320 750 L400 750 L400 710 L420 710 L420 670 L440 670 L440 640 L460 640 L460 710 L500 710 L500 750 L600 750 L600 700 L620 700 L620 660 L650 660 L650 620 L680 620 L680 660 L700 660 L700 750 L800 750 L800 680 L830 680 L830 640 L860 640 L860 600 L890 600 L890 640 L920 640 L920 750 L1000 750 L1000 700 L1030 700 L1030 660 L1060 660 L1060 630 L1090 630 L1090 670 L1120 670 L1120 750 L1200 750 L1200 690 L1230 690 L1230 650 L1260 650 L1260 700 L1300 700 L1300 750 L1400 750 L1400 710 L1430 710 L1430 670 L1460 670 L1460 640 L1490 640 L1490 680 L1520 680 L1520 750 L1600 750 L1600 700 L1640 700 L1640 660 L1680 660 L1680 710 L1720 710 L1720 750 L1800 750 L1800 690 L1840 690 L1840 720 L1880 720 L1880 750 L1920 750 L1920 1080 L0 1080 Z" fill="#0a0a0a" opacity="0.85"/>
+  <!-- Stars -->
+  <circle cx="200" cy="100" r="1.5" fill="white" opacity="0.6"/>
+  <circle cx="500" cy="150" r="1" fill="white" opacity="0.4"/>
+  <circle cx="800" cy="80" r="1.5" fill="white" opacity="0.5"/>
+  <circle cx="1100" cy="120" r="1" fill="white" opacity="0.6"/>
+  <circle cx="1400" cy="90" r="1.5" fill="white" opacity="0.4"/>
+  <circle cx="1700" cy="130" r="1" fill="white" opacity="0.5"/>
+  <circle cx="350" cy="200" r="1" fill="white" opacity="0.3"/>
+  <circle cx="1250" cy="180" r="1.5" fill="white" opacity="0.4"/>
+</svg>

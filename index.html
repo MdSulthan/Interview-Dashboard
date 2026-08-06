@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interview Prep - Career tracking dashboard from goal to offer">
+  <title>Interview Prep</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/kanban.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav-header">
+    <div class="nav-brand">
+      <span class="nav-brand-icon">🎯</span>
+      <span class="nav-brand-text">Interview Prep</span>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="goals">
+        <span class="nav-tab-icon">🏠</span>
+        <span class="nav-tab-text">Dashboard</span>
+      </button>
+      <button class="nav-tab" data-tab="skills">
+        <span class="nav-tab-icon">🚀</span>
+        <span class="nav-tab-text">Skills</span>
+      </button>
+      <button class="nav-tab" data-tab="interviews">
+        <span class="nav-tab-icon">📄</span>
+        <span class="nav-tab-text">Interview Pipeline</span>
+      </button>
+      <button class="nav-tab" data-tab="offers">
+        <span class="nav-tab-icon">💰</span>
+        <span class="nav-tab-text">Offers</span>
+      </button>
+      <button class="nav-tab" data-tab="resumes">
+        <span class="nav-tab-icon">📝</span>
+        <span class="nav-tab-text">Resumes</span>
+      </button>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-profile-btn" onclick="App.cycleTheme()" id="theme-toggle-btn" title="Switch Theme">
+        <span class="nav-profile-icon" id="theme-icon">🌙</span>
+      </button>
+      <button class="nav-profile-btn" onclick="App.openProfileModal()" title="Profile Settings">
+        <span class="nav-profile-icon">👤</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- ==================== TAB 1: GOALS DASHBOARD ==================== -->
+    <section id="tab-goals" class="tab-content active">
+
+      <!-- Welcome Section -->
+      <div id="welcome-section" class="welcome-section"></div>
+
+      <!-- Quick Metrics -->
+      <div id="metrics-grid" class="metrics-grid"></div>
+
+      <!-- Upcoming Interviews Countdown -->
+      <div id="upcoming-interviews-widget" class="upcoming-widget"></div>
+
+      <!-- Dashboard Grid: Readiness + Motivation + Focus -->
+      <div class="dashboard-grid">
+        <div id="readiness-widget" class="readiness-widget"></div>
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-lg)">
+          <div id="motivation-widget" class="motivation-widget"></div>
+          <div id="focus-widget" class="focus-widget"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: SKILLS ==================== -->
+    <section id="tab-skills" class="tab-content">
+      <div class="kanban-section">
+        <div class="kanban-section-header">
+          <h3 class="kanban-section-title">🚀 Skills Tracker</h3>
+          <div class="flex gap-sm items-center">
+            <input type="text" id="skills-search" class="filter-input" placeholder="🔍 Search skills..." oninput="Skills.filterSkills(this.value)">
+            <button class="btn btn-primary btn-sm" onclick="Skills.openCreateModal()">+ New Skill</button>
+          </div>
+        </div>
+        <div id="skills-kanban" class="kanban-board"></div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: INTERVIEW PIPELINE ==================== -->
+    <section id="tab-interviews" class="tab-content">
+      <!-- Interview Summary -->
+      <div id="interviews-summary" style="margin-bottom: var(--spacing-md); flex-shrink: 0"></div>
+
+      <div class="kanban-section">
+        <div class="kanban-section-header">
+          <h3 class="kanban-section-title">📄 Interview Pipeline</h3>
+          <div class="flex gap-sm items-center">
+            <label class="toggle-switch" title="Hide empty columns">
+              <input type="checkbox" id="pipeline-compact" checked onchange="Interviews.toggleCompact(this.checked)">
+              <span class="toggle-slider"></span>
+              <span class="toggle-label-text">Compact</span>
+            </label>
+            <button class="btn btn-primary btn-sm" onclick="Interviews.openCreateModal()">+ Add Company</button>
+          </div>
+        </div>
+        <div id="interviews-kanban" class="kanban-board"></div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: OFFERS ==================== -->
+    <section id="tab-offers" class="tab-content">
+      <!-- Offers Summary -->
+      <div id="offers-summary" style="margin-bottom: var(--spacing-md); flex-shrink: 0"></div>
+
+      <div class="kanban-section">
+        <div class="kanban-section-header">
+          <h3 class="kanban-section-title">💰 Offer Tracker</h3>
+          <div class="flex gap-sm">
+            <button class="btn btn-ghost btn-sm" onclick="Offers.openCompareModal()" id="compare-btn" style="display:none">📊 Compare</button>
+            <button class="btn btn-primary btn-sm" onclick="Offers.openCreateModal()">+ Add Offer</button>
+          </div>
+        </div>
+        <div id="offers-kanban" class="kanban-board"></div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: RESUMES ==================== -->
+    <section id="tab-resumes" class="tab-content">
+      <div class="kanban-section">
+        <div class="kanban-section-header">
+          <h3 class="kanban-section-title">📝 Resume Manager <span id="resume-count-badge" class="kanban-column-count"></span></h3>
+          <div class="flex gap-sm items-center">
+            <span id="storage-indicator" class="storage-indicator"></span>
+            <button class="btn btn-primary btn-sm" onclick="Resumes.openCreateModal()">+ Add Resume</button>
+          </div>
+        </div>
+        <div id="resumes-list" class="resumes-grid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Skill Modal -->
+  <div id="skill-modal" class="modal-overlay">
+    <div class="modal" style="max-width: 640px">
+      <div class="modal-header">
+        <h3 id="skill-modal-title" class="modal-title">Add New Skill</h3>
+        <button class="modal-close" onclick="Skills.closeModal()">&times;</button>
+      </div>
+      <form id="skill-form">
+        <!-- Mandatory Fields -->
+        <div class="form-group" style="position: relative">
+          <label class="form-label">Skill Name *</label>
+          <input type="text" id="skill-name" class="form-input" placeholder="e.g., Java, Selenium, SQL" required autocomplete="off">
+          <div id="skill-name-suggestions" class="skill-suggestions hidden"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Column *</label>
+          <select id="skill-column" class="form-select" required>
+            <option value="not-started">Not Started</option>
+            <option value="learning">Learning</option>
+            <option value="practicing">Practicing</option>
+            <option value="interview-ready">Interview Ready</option>
+            <option value="mastered">Mastered</option>
+          </select>
+        </div>
+
+        <!-- More Options Toggle -->
+        <button type="button" class="more-options-toggle" onclick="toggleMoreOptions(this)">
+          <span class="toggle-icon">▼</span> More Options
+        </button>
+
+        <!-- Optional Fields (hidden by default) -->
+        <div class="more-options-content">
+          <!-- Topics Section (primary) -->
+          <div class="form-group">
+            <label class="form-label">Topics & Subtopics</label>
+            <div id="skill-template-banner" class="skill-template-banner hidden">
+              <span id="skill-template-banner-text"></span>
+              <button type="button" class="btn btn-primary btn-sm" onclick="Skills.loadTemplate()">Load Topics</button>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="Skills.dismissTemplateBanner()">Dismiss</button>
+            </div>
+            <div id="skill-topics-container"></div>
+            <button type="button" class="btn btn-ghost btn-sm mt-sm" onclick="Skills.addTopic()">+ Add Topic</button>
+          </div>
+
+          <!-- Resources Section -->
+          <div class="form-group">
+            <label class="form-label">Resources</label>
+            <div id="skill-resources-container"></div>
+            <button type="button" class="btn btn-ghost btn-sm mt-sm" onclick="Skills.addResource()">+ Add Resource</button>
+          </div>
+
+          <!-- Other optional fields -->
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea id="skill-description" class="form-textarea" placeholder="Brief description of the skill"></textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--spacing-md)">
+            <div class="form-group">
+              <label class="form-label">Knowledge Score</label>
+              <input type="number" id="skill-knowledge" class="form-input" min="0" max="100" value="0">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Practice Score</label>
+              <input type="number" id="skill-practice" class="form-input" min="0" max="100" value="0">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confidence Score</label>
+              <input type="number" id="skill-confidence" class="form-input" min="0" max="100" value="0">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Revised</label>
+            <input type="date" id="skill-last-revised" class="form-input">
+          </div>
+          <!-- Hidden fields for data compatibility -->
+          <input type="hidden" id="skill-progress" value="0">
+          <textarea id="skill-notes" class="hidden"></textarea>
+          <textarea id="skill-questions-easy" class="hidden"></textarea>
+          <textarea id="skill-questions-medium" class="hidden"></textarea>
+          <textarea id="skill-questions-hard" class="hidden"></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="Skills.closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Skill</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Skill Detail Modal -->
+  <div id="skill-detail-modal" class="modal-overlay">
+    <div class="modal" style="max-width: 800px">
+      <div class="modal-header">
+        <h3 class="modal-title">Skill Details</h3>
+        <button class="modal-close" onclick="Skills.closeDetailModal()">&times;</button>
+      </div>
+      <div id="skill-detail-content"></div>
+    </div>
+  </div>
+
+  <!-- Interview Modal -->
+  <div id="interview-modal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="interview-modal-title" class="modal-title">Add Company</h3>
+        <button class="modal-close" onclick="Interviews.closeModal()">&times;</button>
+      </div>
+      <form id="interview-form">
+        <!-- Mandatory Fields -->
+        <div class="form-group" style="position: relative">
+          <label class="form-label">Company Name *</label>
+          <input type="text" id="interview-company" class="form-input" placeholder="Company name" required autocomplete="off">
+          <div id="interview-company-suggestions" class="skill-suggestions hidden"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Stage *</label>
+          <select id="interview-column" class="form-select" required>
+            <option value="target">Target Companies</option>
+            <option value="applied">Applied</option>
+            <option value="hr-screening">HR Screening</option>
+            <option value="technical-1">Technical Round 1</option>
+            <option value="technical-2">Technical Round 2</option>
+            <option value="manager">Manager Round</option>
+            <option value="final">Final Round</option>
+            <option value="selected">Selected</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+
+        <!-- More Options Toggle -->
+        <button type="button" class="more-options-toggle" onclick="toggleMoreOptions(this)">
+          <span class="toggle-icon">▼</span> More Options
+        </button>
+
+        <!-- Optional Fields (hidden by default) -->
+        <div class="more-options-content">
+          <div class="form-group">
+            <label class="form-label">Role / Position</label>
+            <input type="text" id="interview-role" class="form-input" placeholder="e.g., Senior QA Engineer">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea id="interview-description" class="form-textarea" placeholder="Job description or notes"></textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md)">
+            <div class="form-group">
+              <label class="form-label">Salary Range</label>
+              <input type="text" id="interview-salary" class="form-input" placeholder="e.g., ₹120K - ₹150K">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input type="text" id="interview-location" class="form-input" placeholder="e.g., Remote, NYC">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md)">
+            <div class="form-group">
+              <label class="form-label">Job Type</label>
+              <input type="text" id="interview-type" class="form-input" placeholder="e.g., Full-time, Contract">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Next Interview Date</label>
+              <input type="datetime-local" id="interview-next-date" class="form-input">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md)">
+            <div class="form-group">
+              <label class="form-label">Priority</label>
+              <select id="interview-priority" class="form-select">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Contacts</label>
+              <input type="text" id="interview-contacts" class="form-input" placeholder="Recruiter name, email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Resume Used</label>
+            <select id="interview-resume" class="form-select">
+              <option value="">— None —</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes</label>
+            <textarea id="interview-notes" class="form-textarea" placeholder="Interview notes, feedback"></textarea>
+          </div>
+
+          <!-- Round Feedback Section -->
+          <div class="form-group">
+            <label class="form-label">📝 Round Feedback</label>
+            <div id="interview-feedback-container"></div>
+            <button type="button" class="btn btn-ghost btn-sm mt-sm" onclick="Interviews.addFeedbackEntry()">+ Add Round Feedback</button>
+          </div>
+
+          <div id="interview-history-section" class="form-group" style="display:none">
+            <label class="form-label">📜 Stage History</label>
+            <div id="interview-history" class="stage-history"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="Interviews.closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Offer Modal -->
+  <div id="offer-modal" class="modal-overlay">
+    <div class="modal" style="max-width: 600px">
+      <div class="modal-header">
+        <h3 id="offer-modal-title" class="modal-title">Add New Offer</h3>
+        <button class="modal-close" onclick="Offers.closeModal()">&times;</button>
+      </div>
+      <form id="offer-form">
+        <!-- Mandatory Fields -->
+        <div class="form-group" style="position: relative">
+          <label class="form-label">Company Name *</label>
+          <input type="text" id="offer-company" class="form-input" placeholder="Company name" required autocomplete="off">
+          <div id="offer-company-suggestions" class="skill-suggestions hidden"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Stage *</label>
+          <select id="offer-column" class="form-select" required>
+            <option value="verbal">Verbal Offer</option>
+            <option value="written">Written Offer</option>
+            <option value="negotiating">Negotiating</option>
+            <option value="accepted">Accepted</option>
+            <option value="declined">Declined</option>
+          </select>
+        </div>
+
+        <!-- More Options Toggle -->
+        <button type="button" class="more-options-toggle" onclick="toggleMoreOptions(this)">
+          <span class="toggle-icon">▼</span> More Options
+        </button>
+
+        <!-- Optional Fields (hidden by default) -->
+        <div class="more-options-content">
+          <div class="form-group">
+            <label class="form-label">Role / Position</label>
+            <input type="text" id="offer-role" class="form-input" placeholder="e.g., Senior Developer">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md)">
+            <div class="form-group">
+              <label class="form-label">Base Salary</label>
+              <input type="text" id="offer-salary" class="form-input" placeholder="e.g., ₹150,000">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Signing Bonus</label>
+              <input type="text" id="offer-bonus" class="form-input" placeholder="e.g., ₹20,000">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md)">
+            <div class="form-group">
+              <label class="form-label">Equity / RSUs</label>
+              <input type="text" id="offer-equity" class="form-input" placeholder="e.g., ₹50K over 4 years">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input type="text" id="offer-location" class="form-input" placeholder="e.g., San Francisco">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md)">
+            <div class="form-group">
+              <label class="form-label">Remote Policy</label>
+              <input type="text" id="offer-remote" class="form-input" placeholder="e.g., Hybrid, Fully Remote">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Start Date</label>
+              <input type="date" id="offer-start-date" class="form-input">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md)">
+            <div class="form-group">
+              <label class="form-label">Decision Deadline</label>
+              <input type="date" id="offer-deadline" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Priority</label>
+              <select id="offer-priority" class="form-select">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Benefits</label>
+            <textarea id="offer-benefits" class="form-textarea" placeholder="Health, 401k, PTO, etc."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes</label>
+            <textarea id="offer-notes" class="form-textarea" placeholder="Additional notes about the offer"></textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md)">
+            <div class="form-group">
+              <label class="form-label" style="color: var(--color-success)">✅ Pros</label>
+              <textarea id="offer-pros" class="form-textarea" style="min-height:60px" placeholder="One pro per line"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="color: var(--color-danger)">❌ Cons</label>
+              <textarea id="offer-cons" class="form-textarea" style="min-height:60px" placeholder="One con per line"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="Offers.closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Offer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="profile-modal" class="modal-overlay">
+    <div class="modal" style="max-width: 480px">
+      <div class="modal-header">
+        <h3 class="modal-title">👤 Profile Settings</h3>
+        <button class="modal-close" onclick="App.closeProfileModal()">&times;</button>
+      </div>
+      <form id="settings-form">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" id="settings-name" class="form-input" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Primary Goal</label>
+          <input type="text" id="settings-goal" class="form-input" placeholder="e.g., Senior Developer">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md)">
+          <div class="form-group">
+            <label class="form-label">Target Salary</label>
+            <input type="text" id="settings-salary" class="form-input" placeholder="e.g., ₹150,000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Target Date</label>
+            <input type="date" id="settings-date" class="form-input">
+          </div>
+        </div>
+        <div class="modal-footer" style="justify-content: space-between">
+          <div class="flex gap-sm">
+            <button type="button" class="btn btn-ghost btn-sm" onclick="App.exportData()">📤 Export</button>
+            <button type="button" class="btn btn-ghost btn-sm" onclick="App.importData()">📥 Import</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="App.resetData()">🗑️ Reset</button>
+          </div>
+          <button type="submit" class="btn btn-primary">💾 Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Resume Modal -->
+  <div id="resume-modal" class="modal-overlay">
+    <div class="modal" style="max-width: 520px">
+      <div class="modal-header">
+        <h3 id="resume-modal-title" class="modal-title">Upload Resume</h3>
+        <button class="modal-close" onclick="Resumes.closeModal()">&times;</button>
+      </div>
+      <form id="resume-form">
+        <!-- Mandatory Fields -->
+        <div class="form-group" style="position: relative">
+          <label class="form-label">Company Name *</label>
+          <input type="text" id="resume-company" class="form-input" placeholder="e.g., Google, Amazon, Microsoft" required autocomplete="off">
+          <div id="resume-company-suggestions" class="skill-suggestions hidden"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Upload Resume (PDF, DOC, DOCX) *</label>
+          <div class="file-upload-area" id="file-upload-area">
+            <input type="file" id="resume-file" accept=".pdf,.doc,.docx" style="display:none">
+            <div class="file-upload-placeholder" id="file-upload-placeholder" onclick="document.getElementById('resume-file').click()">
+              <span class="file-upload-icon">📎</span>
+              <span class="file-upload-text">Click to select file or drag & drop</span>
+              <span class="file-upload-hint">PDF, DOC, DOCX (max 10MB)</span>
+            </div>
+            <div class="file-upload-selected hidden" id="file-upload-selected">
+              <span class="file-upload-filename" id="file-upload-filename"></span>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="Resumes.clearFile()">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- More Options Toggle -->
+        <button type="button" class="more-options-toggle" onclick="toggleMoreOptions(this)">
+          <span class="toggle-icon">▼</span> More Options
+        </button>
+
+        <!-- Optional Fields (hidden by default) -->
+        <div class="more-options-content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md)">
+            <div class="form-group">
+              <label class="form-label">Role / Position</label>
+              <input type="text" id="resume-role" class="form-input" placeholder="e.g., Senior SDET">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Version</label>
+              <input type="text" id="resume-version" class="form-input" placeholder="e.g., v2">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date Submitted</label>
+            <input type="date" id="resume-date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="compact-toggle" style="cursor:pointer">
+              <input type="checkbox" id="resume-master">
+              <span class="compact-toggle-label">⭐ Mark as Master/Template Resume</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes</label>
+            <textarea id="resume-notes" class="form-textarea" placeholder="Tailored for this role, highlighted Java + Selenium..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="Resumes.closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Resume</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Resume Preview Modal -->
+  <div id="resume-preview-modal" class="modal-overlay">
+    <div class="modal resume-preview-modal" style="max-width: 95vw; width: 95vw; height: 93vh;">
+      <div class="modal-header">
+        <h3 id="resume-preview-title" class="modal-title">Resume Preview</h3>
+        <button class="modal-close" onclick="Resumes.closePreview()">&times;</button>
+      </div>
+      <div id="resume-preview-content" style="flex:1; overflow:hidden; border-radius: var(--border-radius-sm); padding: var(--spacing-sm)"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/sampleData.js"></script>
+  <script src="data/skillTemplates.js"></script>
+  <script src="data/companyData.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/goals.js"></script>
+  <script src="js/skills.js"></script>
+  <script src="js/interviews.js"></script>
+  <script src="js/offers.js"></script>
+  <script src="js/resumes.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
