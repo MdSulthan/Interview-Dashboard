@@ -1306,3 +1306,218 @@ body.has-bg-image .upcoming-widget,
 body.has-bg-image .resume-card-v2 {
   backdrop-filter: blur(8px);
 }
+
+/* Skill Modal Decorated Header */
+.skill-modal-header {
+  position: relative;
+  overflow: hidden;
+  padding: var(--spacing-lg) var(--spacing-xl) !important;
+}
+
+.skill-modal-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.skill-modal-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.skill-modal-header-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  position: relative;
+  z-index: 1;
+}
+
+.skill-modal-icon {
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-light);
+  border-radius: 10px;
+}
+
+/* Decorated Modal Headers (Interview, Offer, Resume) */
+.decorated-modal-header {
+  position: relative;
+  overflow: hidden;
+  padding: var(--spacing-lg) var(--spacing-xl) !important;
+}
+
+.modal-header-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.modal-header-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.modal-header-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  position: relative;
+  z-index: 1;
+}
+
+.modal-header-icon {
+  font-size: 1.4rem;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-light);
+  border-radius: 10px;
+}
+
+/* Gradient Border Search Input */
+.filter-input,
+#skills-search {
+  border: 2px solid transparent;
+  background-image: linear-gradient(var(--bg-surface), var(--bg-surface)), linear-gradient(135deg, #A855F7, #EC4899, #F97316, #FACC15);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border-radius: 24px;
+  padding: 8px 18px;
+  transition: box-shadow var(--transition-fast), background-image var(--transition-fast);
+}
+
+.filter-input:focus,
+#skills-search:focus {
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.3), 0 0 4px rgba(236, 72, 153, 0.2);
+  outline: none;
+}
+
+/* Vibrant Primary Button */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  filter: brightness(1.1);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Ghost Button Rounded */
+.btn-ghost {
+  border-radius: 20px;
+}
+
+/* Modern Dropdown Select */
+.form-select {
+  border: 2px solid transparent;
+  border-radius: 24px;
+  padding: 10px 40px 10px 16px;
+  appearance: none;
+  background-image: linear-gradient(var(--bg-primary), var(--bg-primary)), linear-gradient(135deg, #A855F7, #EC4899, #F97316, #FACC15), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-origin: border-box, border-box, padding-box;
+  background-clip: padding-box, border-box, padding-box;
+  background-repeat: no-repeat;
+  background-position: center, center, right 12px center;
+  background-size: auto, auto, 16px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.form-select:hover {
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.2), 0 0 4px rgba(236, 72, 153, 0.15);
+}
+
+.form-select:focus {
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.3), 0 0 4px rgba(236, 72, 153, 0.2);
+  outline: none;
+}
+
+/* Text Input Modern */
+.form-input {
+  border: 2px solid transparent;
+  border-radius: 24px;
+  background-image: linear-gradient(var(--bg-primary), var(--bg-primary)), linear-gradient(135deg, #A855F7, #EC4899, #F97316, #FACC15);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  transition: all var(--transition-fast);
+}
+
+.form-input:hover {
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.2), 0 0 4px rgba(236, 72, 153, 0.15);
+}
+
+.form-input:focus {
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.3), 0 0 4px rgba(236, 72, 153, 0.2);
+  outline: none;
+}
+
+/* Textarea Modern */
+.form-textarea {
+  border: 2px solid transparent;
+  border-radius: 16px;
+  background-image: linear-gradient(var(--bg-primary), var(--bg-primary)), linear-gradient(135deg, #A855F7, #EC4899, #F97316, #FACC15);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  transition: all var(--transition-fast);
+}
+
+.form-textarea:hover {
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.2), 0 0 4px rgba(236, 72, 153, 0.15);
+}
+
+.form-textarea:focus {
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.3), 0 0 4px rgba(236, 72, 153, 0.2);
+  outline: none;
+}
+
+/* Decorated Section Headers */
+.decorated-section-header {
+  position: relative;
+  overflow: hidden;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-md) !important;
+}
+
+.section-header-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.decorated-section-header .kanban-section-title,
+.decorated-section-header .flex {
+  position: relative;
+  z-index: 1;
+}

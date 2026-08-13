@@ -100,6 +100,13 @@ const App = {
       '--bg-surface-light': 'rgba(50, 35, 24, 0.85)', '--color-primary': '#D4A574', '--color-primary-hover': '#C4956A',
       '--color-primary-light': 'rgba(212, 165, 116, 0.15)', '--text-primary': '#F5E6D3',
       '--text-secondary': '#D4A574', '--text-muted': '#8B7355', '--border-color': 'rgba(212, 165, 116, 0.2)'
+    }},
+    // AWS Docs inspired - dark navy with orange accents
+    { id: 'aws', label: 'AWS Docs', icon: '☁️', vars: {
+      '--bg-primary': '#1B2430', '--bg-surface': '#232F3E', '--bg-surface-hover': '#2E3F51',
+      '--bg-surface-light': '#2A3A4B', '--color-primary': '#FF9900', '--color-primary-hover': '#EC7211',
+      '--color-primary-light': 'rgba(255, 153, 0, 0.12)', '--text-primary': '#F2F3F3',
+      '--text-secondary': '#AAB7B8', '--text-muted': '#687078', '--border-color': '#3B4D61'
     }}
   ],
 
