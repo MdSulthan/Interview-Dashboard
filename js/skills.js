@@ -462,7 +462,7 @@ const Skills = {
     }
 
     // Gather topics from new checkbox UI
-    let topics = this.getTopicsFromForm();
+    const topics = this.getTopicsFromForm();
 
     // Also handle any manually-added topics (plain inputs)
     const newTopicInputs = document.querySelectorAll('[data-new-topic]');

@@ -1,0 +1,42 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "globals": {
+    "Storage": "readonly",
+    "SampleData": "readonly",
+    "SkillTemplates": "readonly",
+    "CompanyData": "readonly",
+    "Analytics": "readonly",
+    "App": "readonly",
+    "Goals": "readonly",
+    "Skills": "readonly",
+    "Interviews": "readonly",
+    "Offers": "readonly",
+    "Resumes": "readonly",
+    "Chatbot": "readonly",
+    "toggleMoreOptions": "readonly",
+    "setMoreOptions": "readonly",
+    "setupCompanySuggest": "readonly",
+    "seedSampleData": "readonly",
+    "migrateToRupees": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "script"
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-undef": "error",
+    "no-console": ["warn", { "allow": ["error"] }],
+    "eqeqeq": "warn",
+    "curly": ["warn", "multi-line"],
+    "no-var": "error",
+    "prefer-const": "warn",
+    "no-duplicate-case": "error",
+    "no-empty": "warn",
+    "no-unreachable": "error",
+    "no-constant-condition": "warn"
+  }
+}

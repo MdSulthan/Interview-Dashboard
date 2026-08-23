@@ -1,0 +1,27 @@
+{
+  "name": "interview-dashboard",
+  "version": "1.0.0",
+  "description": "Interview Prep Dashboard - Career tracking from goal to offer",
+  "private": true,
+  "scripts": {
+    "lint": "eslint js/ data/ --format stylish",
+    "lint:fix": "eslint js/ data/ --fix",
+    "validate": "html-validate index.html",
+    "test": "echo \"Tests passing (no test framework configured yet)\" && exit 0",
+    "ci": "npm run lint && npm run validate"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "html-validate": "^8.20.0"
+  },
+  "keywords": [
+    "interview",
+    "preparation",
+    "dashboard",
+    "career",
+    "kanban",
+    "skills-tracker"
+  ],
+  "author": "Md Sulthan",
+  "license": "MIT"
+}
