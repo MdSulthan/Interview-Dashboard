@@ -1,14 +1,26 @@
 {
   "name": "interview-dashboard",
-  "version": "1.0.0",
-  "description": "Interview Prep Dashboard - Career tracking from goal to offer",
+  "version": "1.1.0",
+  "description": "Interview Prep Dashboard - Career tracking from goal to offer. Track skills, manage interview pipelines, compare offers, and store resumes all in one place.",
   "private": true,
+  "homepage": "https://github.com/mdsulthan/interview-prep",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdsulthan/interview-prep.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mdsulthan/interview-prep/issues"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "lint": "eslint js/ data/ --format stylish",
     "lint:fix": "eslint js/ data/ --fix",
     "validate": "html-validate index.html",
     "test": "echo \"Tests passing (no test framework configured yet)\" && exit 0",
-    "ci": "npm run lint && npm run validate"
+    "ci": "npm run lint && npm run validate",
+    "start": "npx serve ."
   },
   "devDependencies": {
     "eslint": "^8.57.0",
@@ -20,8 +32,11 @@
     "dashboard",
     "career",
     "kanban",
-    "skills-tracker"
+    "skills-tracker",
+    "job-search",
+    "offer-management",
+    "resume-tracker"
   ],
-  "author": "Md Sulthan",
+  "author": "Sulthan",
   "license": "MIT"
 }
