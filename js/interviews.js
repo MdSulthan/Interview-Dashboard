@@ -1,6 +1,7 @@
 // Interviews Module - Interview Pipeline Tracker
 const Interviews = {
   compactMode: true,
+  _offerPromptTimer: null,
 
   // Column colors for headers
   columnColors: {
@@ -257,8 +258,10 @@ const Interviews = {
         const role = interviews[interviewIndex].role;
         // Show celebration first
         Offers.showCelebration(company);
-        // After celebration finishes, show confirm
-        setTimeout(() => {
+        // After celebration finishes, show confirm (cancellable if user navigates away)
+        if (this._offerPromptTimer) clearTimeout(this._offerPromptTimer);
+        this._offerPromptTimer = setTimeout(() => {
+          this._offerPromptTimer = null;
           App.showConfirm(`Congrats on getting selected at ${company}! Would you like to create an offer entry?`).then(yes => {
             if (yes) {
               App.switchTab('offers');

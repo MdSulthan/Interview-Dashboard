@@ -198,13 +198,13 @@ const Chatbot = {
 
   // Add user message to chat
   addUserMessage(text) {
-    this.messages.push({ type: 'user', text });
+    this.messages.push({ type: 'user', text, raw: true });
     this.renderMessages();
   },
 
   // Add bot message to chat
   addBotMessage(text) {
-    this.messages.push({ type: 'bot', text });
+    this.messages.push({ type: 'bot', text, raw: false });
     this.renderMessages();
   },
 
@@ -229,7 +229,7 @@ const Chatbot = {
   renderMessages() {
     const container = document.getElementById('chatbot-messages');
     container.innerHTML = this.messages.map(msg => {
-      const formatted = this.formatMessage(msg.text);
+      const formatted = msg.raw ? Storage.escapeHtml(msg.text) : this.formatMessage(msg.text);
       return `
         <div class="chatbot-msg ${msg.type}">
           <div class="chatbot-bubble ${msg.type}">${formatted}</div>
@@ -239,9 +239,10 @@ const Chatbot = {
     container.scrollTop = container.scrollHeight;
   },
 
-  // Format message text (basic markdown)
+  // Format message text (basic markdown) - escapes HTML first to prevent XSS
   formatMessage(text) {
-    return text
+    const escaped = Storage.escapeHtml(text);
+    return escaped
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\n/g, '<br>')
       .replace(/• /g, '&bull; ');

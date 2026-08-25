@@ -20,34 +20,40 @@
       <span class="nav-brand-icon">🎯</span>
       <span class="nav-brand-text">Interview Prep</span>
     </div>
-    <div class="nav-tabs">
-      <button class="nav-tab active" data-tab="goals">
-        <span class="nav-tab-icon">🏠</span>
+    <div class="nav-tabs" role="tablist" aria-label="Main navigation">
+      <button class="nav-tab active" data-tab="goals" role="tab" aria-selected="true" aria-controls="tab-goals">
+        <span class="nav-tab-icon" aria-hidden="true">🏠</span>
         <span class="nav-tab-text">Dashboard</span>
       </button>
-      <button class="nav-tab" data-tab="skills">
-        <span class="nav-tab-icon">🚀</span>
+      <button class="nav-tab" data-tab="skills" role="tab" aria-selected="false" aria-controls="tab-skills">
+        <span class="nav-tab-icon" aria-hidden="true">🚀</span>
         <span class="nav-tab-text">Skills</span>
       </button>
-      <button class="nav-tab" data-tab="interviews">
-        <span class="nav-tab-icon">📄</span>
+      <button class="nav-tab" data-tab="interviews" role="tab" aria-selected="false" aria-controls="tab-interviews">
+        <span class="nav-tab-icon" aria-hidden="true">📄</span>
         <span class="nav-tab-text">Interview Pipeline</span>
       </button>
-      <button class="nav-tab" data-tab="offers">
-        <span class="nav-tab-icon">💰</span>
+      <button class="nav-tab" data-tab="offers" role="tab" aria-selected="false" aria-controls="tab-offers">
+        <span class="nav-tab-icon" aria-hidden="true">💰</span>
         <span class="nav-tab-text">Offers</span>
       </button>
-      <button class="nav-tab" data-tab="resumes">
-        <span class="nav-tab-icon">📝</span>
+      <button class="nav-tab" data-tab="resumes" role="tab" aria-selected="false" aria-controls="tab-resumes">
+        <span class="nav-tab-icon" aria-hidden="true">📝</span>
         <span class="nav-tab-text">Resumes</span>
       </button>
     </div>
     <div class="nav-actions">
-      <button class="nav-profile-btn" onclick="App.cycleTheme()" id="theme-toggle-btn" title="Switch Theme">
-        <span class="nav-profile-icon" id="theme-icon">🌙</span>
-      </button>
-      <button class="nav-profile-btn" onclick="App.openProfileModal()" title="Profile Settings">
-        <span class="nav-profile-icon">👤</span>
+      <div class="theme-dropdown-wrapper">
+        <button class="nav-profile-btn" onclick="App.toggleThemeDropdown()" id="theme-toggle-btn" title="Switch Theme" aria-label="Switch Theme" aria-expanded="false" aria-haspopup="true">
+          <span class="nav-profile-icon" id="theme-icon" aria-hidden="true">🎮</span>
+        </button>
+        <div id="theme-dropdown" class="theme-dropdown hidden">
+          <div class="theme-dropdown-title">Choose Theme</div>
+          <div id="theme-dropdown-list"></div>
+        </div>
+      </div>
+      <button class="nav-profile-btn" onclick="App.openProfileModal()" title="Profile Settings" aria-label="Profile Settings">
+        <span class="nav-profile-icon" aria-hidden="true">👤</span>
       </button>
     </div>
   </nav>
@@ -56,7 +62,7 @@
   <main class="main-content">
 
     <!-- ==================== TAB 1: GOALS DASHBOARD ==================== -->
-    <section id="tab-goals" class="tab-content active">
+    <section id="tab-goals" class="tab-content active" role="tabpanel" aria-labelledby="tab-goals-btn">
 
       <!-- Welcome Section -->
       <div id="welcome-section" class="welcome-section"></div>
@@ -78,10 +84,10 @@
     </section>
 
     <!-- ==================== TAB 2: SKILLS ==================== -->
-    <section id="tab-skills" class="tab-content">
+    <section id="tab-skills" class="tab-content" role="tabpanel" aria-labelledby="tab-skills-btn">
       <div class="kanban-section">
         <div class="kanban-section-header decorated-section-header">
-          <svg class="section-header-svg" viewBox="0 0 1200 50" preserveAspectRatio="none">
+          <svg class="section-header-svg" viewBox="0 0 1200 50" preserveAspectRatio="none" aria-hidden="true">
             <defs><linearGradient id="skills-sec-grad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:var(--color-primary);stop-opacity:0.1"/><stop offset="100%" style="stop-color:var(--color-primary);stop-opacity:0"/></linearGradient></defs>
             <rect width="1200" height="50" fill="url(#skills-sec-grad)"/>
             <text x="950" y="18" font-family="monospace" font-size="9" fill="var(--color-primary)" opacity="0.15">learn() → practice() → master()</text>
@@ -99,13 +105,13 @@
     </section>
 
     <!-- ==================== TAB 3: INTERVIEW PIPELINE ==================== -->
-    <section id="tab-interviews" class="tab-content">
+    <section id="tab-interviews" class="tab-content" role="tabpanel" aria-labelledby="tab-interviews-btn">
       <!-- Interview Summary -->
       <div id="interviews-summary" style="margin-bottom: var(--spacing-md); flex-shrink: 0"></div>
 
       <div class="kanban-section">
         <div class="kanban-section-header decorated-section-header">
-          <svg class="section-header-svg" viewBox="0 0 1200 50" preserveAspectRatio="none">
+          <svg class="section-header-svg" viewBox="0 0 1200 50" preserveAspectRatio="none" aria-hidden="true">
             <defs><linearGradient id="int-sec-grad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:var(--color-primary);stop-opacity:0.08"/><stop offset="100%" style="stop-color:var(--color-primary);stop-opacity:0"/></linearGradient></defs>
             <rect width="1200" height="50" fill="url(#int-sec-grad)"/>
             <circle cx="900" cy="25" r="4" fill="var(--color-primary)" opacity="0.12"/>
@@ -132,13 +138,13 @@
     </section>
 
     <!-- ==================== TAB 4: OFFERS ==================== -->
-    <section id="tab-offers" class="tab-content">
+    <section id="tab-offers" class="tab-content" role="tabpanel" aria-labelledby="tab-offers-btn">
       <!-- Offers Summary -->
       <div id="offers-summary" style="margin-bottom: var(--spacing-md); flex-shrink: 0"></div>
 
       <div class="kanban-section">
         <div class="kanban-section-header decorated-section-header">
-          <svg class="section-header-svg" viewBox="0 0 1200 50" preserveAspectRatio="none">
+          <svg class="section-header-svg" viewBox="0 0 1200 50" preserveAspectRatio="none" aria-hidden="true">
             <defs><linearGradient id="offer-sec-grad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#22C55E;stop-opacity:0.08"/><stop offset="100%" style="stop-color:#22C55E;stop-opacity:0"/></linearGradient></defs>
             <rect width="1200" height="50" fill="url(#offer-sec-grad)"/>
             <path d="M900 40 L950 30 L1000 32 L1050 20 L1100 15 L1150 10" fill="none" stroke="#22C55E" stroke-width="1.5" opacity="0.15"/>
@@ -158,10 +164,10 @@
     </section>
 
     <!-- ==================== TAB 5: RESUMES ==================== -->
-    <section id="tab-resumes" class="tab-content">
+    <section id="tab-resumes" class="tab-content" role="tabpanel" aria-labelledby="tab-resumes-btn">
       <div class="kanban-section">
         <div class="kanban-section-header decorated-section-header">
-          <svg class="section-header-svg" viewBox="0 0 1200 50" preserveAspectRatio="none">
+          <svg class="section-header-svg" viewBox="0 0 1200 50" preserveAspectRatio="none" aria-hidden="true">
             <defs><linearGradient id="resume-sec-grad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:var(--color-primary);stop-opacity:0.08"/><stop offset="100%" style="stop-color:var(--color-primary);stop-opacity:0"/></linearGradient></defs>
             <rect width="1200" height="50" fill="url(#resume-sec-grad)"/>
             <rect x="950" y="8" width="30" height="38" rx="2" fill="none" stroke="var(--color-primary)" stroke-width="0.8" opacity="0.12"/>
@@ -191,7 +197,7 @@
   <!-- ==================== MODALS ==================== -->
 
   <!-- Skill Modal -->
-  <div id="skill-modal" class="modal-overlay">
+  <div id="skill-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="skill-modal-title">
     <div class="modal" style="max-width: 640px">
       <div class="modal-header skill-modal-header">
         <div class="skill-modal-decoration">
@@ -217,7 +223,7 @@
           <span class="skill-modal-icon">🚀</span>
           <h3 id="skill-modal-title" class="modal-title">Add New Skill</h3>
         </div>
-        <button class="modal-close" onclick="Skills.closeModal()">&times;</button>
+        <button class="modal-close" onclick="Skills.closeModal()" aria-label="Close">&times;</button>
       </div>
       <form id="skill-form">
         <!-- Mandatory Fields -->
@@ -303,7 +309,7 @@
   </div>
 
   <!-- Skill Detail Modal -->
-  <div id="skill-detail-modal" class="modal-overlay">
+  <div id="skill-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="skill-detail-title">
     <div class="modal" style="max-width: 800px">
       <div class="modal-header decorated-modal-header">
         <div class="modal-header-decoration">
@@ -335,16 +341,16 @@
         </div>
         <div class="modal-header-content">
           <span class="modal-header-icon">📊</span>
-          <h3 class="modal-title">Skill Details</h3>
+          <h3 id="skill-detail-title" class="modal-title">Skill Details</h3>
         </div>
-        <button class="modal-close" onclick="Skills.closeDetailModal()">&times;</button>
+        <button class="modal-close" onclick="Skills.closeDetailModal()" aria-label="Close">&times;</button>
       </div>
       <div id="skill-detail-content"></div>
     </div>
   </div>
 
   <!-- Interview Modal -->
-  <div id="interview-modal" class="modal-overlay">
+  <div id="interview-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="interview-modal-title">
     <div class="modal">
       <div class="modal-header decorated-modal-header">
         <div class="modal-header-decoration">
@@ -379,7 +385,7 @@
           <span class="modal-header-icon">📄</span>
           <h3 id="interview-modal-title" class="modal-title">Add Company</h3>
         </div>
-        <button class="modal-close" onclick="Interviews.closeModal()">&times;</button>
+        <button class="modal-close" onclick="Interviews.closeModal()" aria-label="Close">&times;</button>
       </div>
       <form id="interview-form">
         <!-- Mandatory Fields -->
@@ -486,7 +492,7 @@
   </div>
 
   <!-- Offer Modal -->
-  <div id="offer-modal" class="modal-overlay">
+  <div id="offer-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="offer-modal-title">
     <div class="modal" style="max-width: 600px">
       <div class="modal-header decorated-modal-header">
         <div class="modal-header-decoration">
@@ -515,7 +521,7 @@
           <span class="modal-header-icon" style="background: rgba(34, 197, 94, 0.15)">💰</span>
           <h3 id="offer-modal-title" class="modal-title">Add New Offer</h3>
         </div>
-        <button class="modal-close" onclick="Offers.closeModal()">&times;</button>
+        <button class="modal-close" onclick="Offers.closeModal()" aria-label="Close">&times;</button>
       </div>
       <form id="offer-form">
         <!-- Mandatory Fields -->
@@ -620,11 +626,11 @@
   </div>
 
   <!-- Profile Modal -->
-  <div id="profile-modal" class="modal-overlay">
-    <div class="modal" style="max-width: 480px">
+  <div id="profile-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+    <div class="modal" style="max-width: 600px">
       <div class="modal-header">
-        <h3 class="modal-title">👤 Profile Settings</h3>
-        <button class="modal-close" onclick="App.closeProfileModal()">&times;</button>
+        <h3 id="profile-modal-title" class="modal-title">👤 Profile Settings</h3>
+        <button class="modal-close" onclick="App.closeProfileModal()" aria-label="Close">&times;</button>
       </div>
       <form id="settings-form">
         <div class="form-group">
@@ -645,20 +651,27 @@
             <input type="date" id="settings-date" class="form-input">
           </div>
         </div>
+        <!-- Saved Profiles Section -->
+        <div class="form-group" id="saved-profiles-section">
+          <label class="form-label">📂 Saved Profiles</label>
+          <div id="saved-profiles-list"></div>
+        </div>
+
         <div class="modal-footer" style="justify-content: space-between">
           <div class="flex gap-sm">
+            <button type="button" class="btn btn-primary btn-sm" onclick="App.saveProfile()">💾 Save Profile</button>
             <button type="button" class="btn btn-ghost btn-sm" onclick="App.exportData()">📤 Export</button>
             <button type="button" class="btn btn-ghost btn-sm" onclick="App.importData()">📥 Import</button>
             <button type="button" class="btn btn-danger btn-sm" onclick="App.resetData()">🗑️ Reset</button>
           </div>
-          <button type="submit" class="btn btn-primary">💾 Save</button>
+          <button type="submit" class="btn btn-primary">Save Settings</button>
         </div>
       </form>
     </div>
   </div>
 
   <!-- Resume Modal -->
-  <div id="resume-modal" class="modal-overlay">
+  <div id="resume-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="resume-modal-title">
     <div class="modal" style="max-width: 520px">
       <div class="modal-header decorated-modal-header">
         <div class="modal-header-decoration">
@@ -693,7 +706,7 @@
           <span class="modal-header-icon">📝</span>
           <h3 id="resume-modal-title" class="modal-title">Upload Resume</h3>
         </div>
-        <button class="modal-close" onclick="Resumes.closeModal()">&times;</button>
+        <button class="modal-close" onclick="Resumes.closeModal()" aria-label="Close">&times;</button>
       </div>
       <form id="resume-form">
         <!-- Mandatory Fields -->
@@ -760,11 +773,11 @@
   </div>
 
   <!-- Resume Preview Modal -->
-  <div id="resume-preview-modal" class="modal-overlay">
+  <div id="resume-preview-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="resume-preview-title">
     <div class="modal resume-preview-modal" style="max-width: 95vw; width: 95vw; height: 93vh;">
       <div class="modal-header">
         <h3 id="resume-preview-title" class="modal-title">Resume Preview</h3>
-        <button class="modal-close" onclick="Resumes.closePreview()">&times;</button>
+        <button class="modal-close" onclick="Resumes.closePreview()" aria-label="Close">&times;</button>
       </div>
       <div id="resume-preview-content" style="flex:1; overflow:hidden; border-radius: var(--border-radius-sm); padding: var(--spacing-sm)"></div>
     </div>

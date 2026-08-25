@@ -4,104 +4,38 @@ const App = {
   undoStack: [], // For undo delete feature
   tabKeys: ['goals', 'skills', 'interviews', 'offers', 'resumes'],
 
-  // Theme definitions - Inspired by top products
+  // Theme definitions
   themes: [
-    // Discord-inspired dark theme with blurple accents
     { id: 'discord', label: 'Discord', icon: '🎮', vars: {
       '--bg-primary': '#1E1F22', '--bg-surface': '#2B2D31', '--bg-surface-hover': '#35373C',
       '--bg-surface-light': '#313338', '--color-primary': '#5865F2', '--color-primary-hover': '#4752C4',
       '--color-primary-light': 'rgba(88, 101, 242, 0.15)', '--text-primary': '#F2F3F5',
       '--text-secondary': '#B5BAC1', '--text-muted': '#6D6F78', '--border-color': '#3F4147'
     }},
-    // Notion-inspired clean light theme
     { id: 'notion', label: 'Notion', icon: '📝', vars: {
       '--bg-primary': '#FFFFFF', '--bg-surface': '#FBFBFA', '--bg-surface-hover': '#F1F1EF',
       '--bg-surface-light': '#E8E8E5', '--color-primary': '#2383E2', '--color-primary-hover': '#1B6EC2',
       '--color-primary-light': 'rgba(35, 131, 226, 0.08)', '--text-primary': '#191919',
       '--text-secondary': '#5A5A5A', '--text-muted': '#9B9A97', '--border-color': '#E8E8E5'
     }},
-    // Spotify-inspired dark with green
     { id: 'spotify', label: 'Spotify', icon: '🎵', vars: {
       '--bg-primary': '#121212', '--bg-surface': '#1E1E1E', '--bg-surface-hover': '#282828',
       '--bg-surface-light': '#2A2A2A', '--color-primary': '#1DB954', '--color-primary-hover': '#1AA34A',
       '--color-primary-light': 'rgba(29, 185, 84, 0.15)', '--text-primary': '#FFFFFF',
       '--text-secondary': '#B3B3B3', '--text-muted': '#6A6A6A', '--border-color': '#333333'
     }},
-    // GitHub dark - the modern dimmed look
     { id: 'github', label: 'GitHub', icon: '🐙', vars: {
       '--bg-primary': '#0D1117', '--bg-surface': '#161B22', '--bg-surface-hover': '#21262D',
       '--bg-surface-light': '#1C2128', '--color-primary': '#58A6FF', '--color-primary-hover': '#79C0FF',
       '--color-primary-light': 'rgba(88, 166, 255, 0.12)', '--text-primary': '#E6EDF3',
       '--text-secondary': '#8B949E', '--text-muted': '#6E7681', '--border-color': '#30363D'
     }},
-    // Linear-inspired sleek purple
-    { id: 'linear', label: 'Linear', icon: '⚡', vars: {
-      '--bg-primary': '#111113', '--bg-surface': '#1A1A1F', '--bg-surface-hover': '#232329',
-      '--bg-surface-light': '#1F1F25', '--color-primary': '#7C5CFC', '--color-primary-hover': '#6B4EE0',
-      '--color-primary-light': 'rgba(124, 92, 252, 0.12)', '--text-primary': '#EDEDEF',
-      '--text-secondary': '#8A8A95', '--text-muted': '#5C5C66', '--border-color': '#2C2C35'
-    }},
-    // Vercel-inspired minimal black & white
-    { id: 'vercel', label: 'Vercel', icon: '▲', vars: {
-      '--bg-primary': '#000000', '--bg-surface': '#111111', '--bg-surface-hover': '#1A1A1A',
-      '--bg-surface-light': '#171717', '--color-primary': '#FFFFFF', '--color-primary-hover': '#E5E5E5',
-      '--color-primary-light': 'rgba(255, 255, 255, 0.08)', '--text-primary': '#EDEDED',
-      '--text-secondary': '#A1A1A1', '--text-muted': '#666666', '--border-color': '#2E2E2E'
-    }},
-    // Figma-inspired warm light with purple
-    { id: 'figma', label: 'Figma', icon: '🎨', vars: {
-      '--bg-primary': '#F5F5F5', '--bg-surface': '#FFFFFF', '--bg-surface-hover': '#F0F0F0',
-      '--bg-surface-light': '#E8E8E8', '--color-primary': '#A259FF', '--color-primary-hover': '#8B3FE0',
-      '--color-primary-light': 'rgba(162, 89, 255, 0.1)', '--text-primary': '#1E1E1E',
-      '--text-secondary': '#5F5F5F', '--text-muted': '#999999', '--border-color': '#E5E5E5'
-    }},
-    // Slack-inspired cozy dark with cyan
-    { id: 'slack', label: 'Slack', icon: '💬', vars: {
-      '--bg-primary': '#1A1D21', '--bg-surface': '#222529', '--bg-surface-hover': '#2C2F33',
-      '--bg-surface-light': '#272A2E', '--color-primary': '#36C5F0', '--color-primary-hover': '#2EB0D6',
-      '--color-primary-light': 'rgba(54, 197, 240, 0.12)', '--text-primary': '#F8F8F8',
-      '--text-secondary': '#ABABAD', '--text-muted': '#6B6B6D', '--border-color': '#35383C'
-    }},
-    // Twitter/X dark mode
-    { id: 'twitter', label: 'X (Twitter)', icon: '𝕏', vars: {
-      '--bg-primary': '#15202B', '--bg-surface': '#192734', '--bg-surface-hover': '#22303C',
-      '--bg-surface-light': '#1E2C3A', '--color-primary': '#1D9BF0', '--color-primary-hover': '#1A8CD8',
-      '--color-primary-light': 'rgba(29, 155, 240, 0.12)', '--text-primary': '#E7E9EA',
-      '--text-secondary': '#8899A6', '--text-muted': '#6E767D', '--border-color': '#2F3336'
-    }},
-    // VS Code dark+ theme
     { id: 'vscode', label: 'VS Code', icon: '💻', vars: {
       '--bg-primary': '#1E1E1E', '--bg-surface': '#252526', '--bg-surface-hover': '#2D2D2D',
       '--bg-surface-light': '#333333', '--color-primary': '#007ACC', '--color-primary-hover': '#1A8FDB',
       '--color-primary-light': 'rgba(0, 122, 204, 0.15)', '--text-primary': '#D4D4D4',
       '--text-secondary': '#9CDCFE', '--text-muted': '#6A9955', '--border-color': '#3E3E3E'
     }},
-    // Image-based themes
-    { id: 'sunrise', label: 'Sunrise Office', icon: '🌅', bg: 'assets/bg-sunrise.svg', vars: {
-      '--bg-primary': 'rgba(10, 10, 10, 0.75)', '--bg-surface': 'rgba(20, 15, 30, 0.85)', '--bg-surface-hover': 'rgba(40, 30, 50, 0.85)',
-      '--bg-surface-light': 'rgba(30, 20, 40, 0.85)', '--color-primary': '#FB8500', '--color-primary-hover': '#E85D04',
-      '--color-primary-light': 'rgba(251, 133, 0, 0.15)', '--text-primary': '#FFF7ED',
-      '--text-secondary': '#FDBA74', '--text-muted': '#8B7355', '--border-color': 'rgba(251, 133, 0, 0.2)'
-    }},
-    { id: 'citynight', label: 'City Night', icon: '🌃', bg: 'assets/bg-citynight.svg', vars: {
-      '--bg-primary': 'rgba(2, 0, 36, 0.7)', '--bg-surface': 'rgba(9, 9, 121, 0.4)', '--bg-surface-hover': 'rgba(15, 15, 60, 0.6)',
-      '--bg-surface-light': 'rgba(10, 10, 46, 0.6)', '--color-primary': '#00D4FF', '--color-primary-hover': '#00B8E6',
-      '--color-primary-light': 'rgba(0, 212, 255, 0.12)', '--text-primary': '#E8F4FD',
-      '--text-secondary': '#87CEEB', '--text-muted': '#5B8BA0', '--border-color': 'rgba(0, 212, 255, 0.15)'
-    }},
-    { id: 'focus', label: 'Focus Mode', icon: '🧠', bg: 'assets/bg-focus.svg', vars: {
-      '--bg-primary': 'rgba(10, 10, 15, 0.8)', '--bg-surface': 'rgba(26, 26, 46, 0.85)', '--bg-surface-hover': 'rgba(35, 35, 55, 0.85)',
-      '--bg-surface-light': 'rgba(30, 30, 50, 0.85)', '--color-primary': '#5865F2', '--color-primary-hover': '#4752C4',
-      '--color-primary-light': 'rgba(88, 101, 242, 0.15)', '--text-primary': '#EDEDEF',
-      '--text-secondary': '#8A8AFF', '--text-muted': '#5C5C8A', '--border-color': 'rgba(88, 101, 242, 0.2)'
-    }},
-    { id: 'coffee', label: 'Coffee Shop', icon: '☕', bg: 'assets/bg-coffee.svg', vars: {
-      '--bg-primary': 'rgba(26, 15, 10, 0.8)', '--bg-surface': 'rgba(45, 31, 20, 0.85)', '--bg-surface-hover': 'rgba(61, 43, 31, 0.85)',
-      '--bg-surface-light': 'rgba(50, 35, 24, 0.85)', '--color-primary': '#D4A574', '--color-primary-hover': '#C4956A',
-      '--color-primary-light': 'rgba(212, 165, 116, 0.15)', '--text-primary': '#F5E6D3',
-      '--text-secondary': '#D4A574', '--text-muted': '#8B7355', '--border-color': 'rgba(212, 165, 116, 0.2)'
-    }},
-    // AWS Docs inspired - dark navy with orange accents
     { id: 'aws', label: 'AWS Docs', icon: '☁️', vars: {
       '--bg-primary': '#1B2430', '--bg-surface': '#232F3E', '--bg-surface-hover': '#2E3F51',
       '--bg-surface-light': '#2A3A4B', '--color-primary': '#FF9900', '--color-primary-hover': '#EC7211',
@@ -153,12 +87,82 @@ const App = {
   },
 
   // Cycle to next theme
+  // Toggle theme dropdown
+  toggleThemeDropdown() {
+    const dropdown = document.getElementById('theme-dropdown');
+    const isOpen = !dropdown.classList.contains('hidden');
+    if (isOpen) {
+      dropdown.classList.add('hidden');
+    } else {
+      this.renderThemeDropdown();
+      dropdown.classList.remove('hidden');
+      // Remove any previously attached close handler to prevent listener accumulation
+      if (this._themeCloseHandler) {
+        document.removeEventListener('click', this._themeCloseHandler);
+      }
+      setTimeout(() => {
+        this._themeCloseHandler = (e) => {
+          if (!e.target.closest('.theme-dropdown-wrapper')) {
+            dropdown.classList.add('hidden');
+            document.removeEventListener('click', this._themeCloseHandler);
+            this._themeCloseHandler = null;
+          }
+        };
+        document.addEventListener('click', this._themeCloseHandler);
+      }, 10);
+    }
+  },
+
+  // Render theme list inside dropdown
+  renderThemeDropdown() {
+    const container = document.getElementById('theme-dropdown-list');
+    if (!container) return;
+    const currentTheme = Storage.get('theme') || 'discord';
+
+    container.innerHTML = this.themes.map(t => `
+      <div class="theme-dropdown-item ${t.id === currentTheme ? 'active' : ''}" onclick="App.selectThemeFromDropdown('${t.id}')">
+        <span class="theme-dropdown-color" style="background: ${t.vars['--bg-primary']}; box-shadow: inset 0 0 0 2px ${t.vars['--color-primary']}"></span>
+        <span class="theme-dropdown-name">${t.icon} ${t.label}</span>
+        ${t.id === currentTheme ? '<span class="theme-dropdown-check">✓</span>' : ''}
+      </div>
+    `).join('');
+  },
+
+  // Select theme from dropdown
+  selectThemeFromDropdown(themeId) {
+    this.applyTheme(themeId);
+    document.getElementById('theme-dropdown').classList.add('hidden');
+  },
+
+  // Cycle to next theme (keyboard shortcut T)
   cycleTheme() {
-    const current = Storage.get('theme') || 'dark';
+    const current = Storage.get('theme') || 'discord';
     const currentIndex = this.themes.findIndex(t => t.id === current);
     const nextIndex = (currentIndex + 1) % this.themes.length;
     this.applyTheme(this.themes[nextIndex].id);
     this.showToast(`Theme: ${this.themes[nextIndex].label}`, 'info');
+  },
+
+  // Render theme selector in profile modal
+  renderThemeSelector() {
+    const container = document.getElementById('theme-selector');
+    if (!container) return;
+    const currentTheme = Storage.get('theme') || 'discord';
+
+    container.innerHTML = this.themes.map(t => `
+      <button type="button" class="theme-option ${t.id === currentTheme ? 'active' : ''}" onclick="App.selectTheme('${t.id}')" title="${t.label}">
+        <span class="theme-option-preview" style="background: ${t.vars['--bg-primary']}; border-color: ${t.vars['--color-primary']}">
+          <span class="theme-option-accent" style="background: ${t.vars['--color-primary']}"></span>
+        </span>
+        <span class="theme-option-label">${t.icon} ${t.label}</span>
+      </button>
+    `).join('');
+  },
+
+  // Select a theme from the selector
+  selectTheme(themeId) {
+    this.applyTheme(themeId);
+    this.renderThemeSelector();
   },
 
   // ==================== KEYBOARD SHORTCUTS ====================
@@ -359,9 +363,17 @@ const App = {
   switchTab(tabId) {
     this.currentTab = tabId;
 
+    // Cancel any pending interview-to-offer prompt if navigating away
+    if (tabId !== 'interviews' && Interviews._offerPromptTimer) {
+      clearTimeout(Interviews._offerPromptTimer);
+      Interviews._offerPromptTimer = null;
+    }
+
     // Update tab buttons
     document.querySelectorAll('.nav-tab').forEach(tab => {
-      tab.classList.toggle('active', tab.dataset.tab === tabId);
+      const isActive = tab.dataset.tab === tabId;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
 
     // Update tab content
@@ -473,13 +485,14 @@ const App = {
         info: { icon: '📌', title: 'Just so you know', color: 'var(--color-primary)', bg: 'var(--color-primary-light)' }
       };
       const cfg = configs[type] || configs.warning;
+      const safeMessage = Storage.escapeHtml(message);
       overlay.innerHTML = `
         <div class="popup-box">
           <div class="popup-icon-wrapper" style="background: ${cfg.bg}; color: ${cfg.color}">
             <span class="popup-icon">${cfg.icon}</span>
           </div>
           <div class="popup-title" style="color: ${cfg.color}">${cfg.title}</div>
-          <div class="popup-message">${message}</div>
+          <div class="popup-message">${safeMessage}</div>
           <div class="popup-actions"><button class="btn btn-primary popup-btn-ok">Got it</button></div>
         </div>
       `;
@@ -498,13 +511,14 @@ const App = {
       document.querySelectorAll('.popup-overlay').forEach(el => el.remove());
       const overlay = document.createElement('div');
       overlay.className = 'popup-overlay';
+      const safeMessage = Storage.escapeHtml(message);
       overlay.innerHTML = `
         <div class="popup-box">
           <div class="popup-icon-wrapper" style="background: var(--color-warning-light); color: var(--color-warning)">
             <span class="popup-icon">🤔</span>
           </div>
           <div class="popup-title" style="color: var(--color-warning)">Are you sure?</div>
-          <div class="popup-message">${message}</div>
+          <div class="popup-message">${safeMessage}</div>
           <div class="popup-actions">
             <button class="btn btn-ghost popup-btn-cancel">Cancel</button>
             <button class="btn btn-danger popup-btn-confirm">Confirm</button>
@@ -520,7 +534,7 @@ const App = {
     });
   },
 
-  openProfileModal() { this.loadSettings(); document.getElementById('profile-modal').classList.add('active'); },
+  openProfileModal() { this.loadSettings(); this.renderSavedProfiles(); this.renderThemeSelector(); document.getElementById('profile-modal').classList.add('active'); },
   closeProfileModal() { document.getElementById('profile-modal').classList.remove('active'); },
 
   // Export data
@@ -550,9 +564,36 @@ const App = {
       const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
+      reader.onerror = () => {
+        this.showAlert('Failed to read the file. Please try again.', 'error');
+      };
       reader.onload = (event) => {
         try {
           const data = JSON.parse(event.target.result);
+
+          // Validate imported data structure
+          if (typeof data !== 'object' || data === null || Array.isArray(data)) {
+            this.showAlert('Invalid backup file format. Expected a JSON object.', 'error');
+            return;
+          }
+
+          const validKeys = ['goals', 'skills', 'interviews', 'offers', 'resumes', 'settings', 'exportedAt'];
+          const dataKeys = Object.keys(data);
+          const hasValidKey = dataKeys.some(k => validKeys.includes(k));
+          if (!hasValidKey) {
+            this.showAlert('This file does not appear to be a valid Interview Prep backup.', 'error');
+            return;
+          }
+
+          // Validate array fields are actually arrays
+          const arrayFields = ['goals', 'skills', 'interviews', 'offers', 'resumes'];
+          for (const field of arrayFields) {
+            if (data[field] && !Array.isArray(data[field])) {
+              this.showAlert(`Invalid data: "${field}" should be a list. Import aborted.`, 'error');
+              return;
+            }
+          }
+
           if (data.goals) Storage.saveGoals(data.goals);
           if (data.skills) Storage.saveSkills(data.skills);
           if (data.interviews) Storage.saveInterviews(data.interviews);
@@ -573,14 +614,131 @@ const App = {
 
   // Reset all data
   async resetData() {
-    const first = await this.showConfirm('This will erase all your data including skills, interviews, offers, and resumes. This cannot be undone.');
+    const first = await this.showConfirm('Your current progress will be saved as a profile backup before resetting. You can restore it anytime.');
     if (!first) return;
-    const second = await this.showConfirm('Last chance! All your progress and data will be permanently deleted. Are you absolutely sure?');
-    if (!second) return;
+
+    // Auto-save current profile before reset
+    this.saveProfile(true);
+
     Storage.clearAll();
     this.loadSettings();
     this.switchTab(this.currentTab);
-    this.showToast('All data has been reset');
+    this.showToast('Data reset! Your profile backup is saved.');
+  },
+
+  // Save current data as a named profile in localStorage
+  saveProfile(silent = false) {
+    const settings = Storage.getSettings();
+    const profileName = settings.userName || 'User';
+    const timestamp = new Date().toISOString();
+    const profileId = 'profile_' + Date.now();
+
+    const profileData = {
+      id: profileId,
+      name: profileName,
+      savedAt: timestamp,
+      data: {
+        goals: Storage.getGoals(),
+        skills: Storage.getSkills(),
+        interviews: Storage.getInterviews(),
+        offers: Storage.getOffers(),
+        resumes: Storage.get('resumes') || [],
+        settings: Storage.getSettings(),
+        lastActivity: Storage.get('lastActivity'),
+        theme: Storage.get('theme')
+      }
+    };
+
+    // Get existing profiles list
+    const profiles = JSON.parse(localStorage.getItem('interviewPrep_profiles') || '[]');
+
+    // Check for duplicate profile name (update existing instead of creating new)
+    const existingIndex = profiles.findIndex(p => p.name.toLowerCase() === profileName.toLowerCase());
+    if (existingIndex > -1) {
+      profiles[existingIndex] = profileData;
+    } else {
+      profiles.unshift(profileData);
+      // Keep max 5 profiles
+      if (profiles.length > 5) profiles.pop();
+    }
+
+    localStorage.setItem('interviewPrep_profiles', JSON.stringify(profiles));
+
+    if (!silent) {
+      this.showToast(`Profile "${profileName}" saved!`);
+      this.renderSavedProfiles();
+    }
+  },
+
+  // Load a saved profile from localStorage
+  async loadProfileById(profileId) {
+    const profiles = JSON.parse(localStorage.getItem('interviewPrep_profiles') || '[]');
+    const profile = profiles.find(p => p.id === profileId);
+    if (!profile) return;
+
+    const confirmed = await this.showConfirm(`Load profile "${profile.name}" from ${new Date(profile.savedAt).toLocaleDateString()}? This will replace your current data.`);
+    if (!confirmed) return;
+
+    const data = profile.data;
+    if (data.goals) Storage.saveGoals(data.goals);
+    if (data.skills) Storage.saveSkills(data.skills);
+    if (data.interviews) Storage.saveInterviews(data.interviews);
+    if (data.offers) Storage.saveOffers(data.offers);
+    if (data.resumes) Storage.set('resumes', data.resumes);
+    if (data.settings) Storage.saveSettings(data.settings);
+    if (data.lastActivity) Storage.set('lastActivity', data.lastActivity);
+    if (data.theme) {
+      Storage.set('theme', data.theme);
+      this.applyTheme(data.theme);
+    }
+
+    this.loadSettings();
+    this.closeProfileModal();
+    this.switchTab('goals');
+    this.showToast(`Profile "${profile.name}" loaded!`, 'success');
+  },
+
+  // Delete a saved profile
+  async deleteProfile(profileId) {
+    const profiles = JSON.parse(localStorage.getItem('interviewPrep_profiles') || '[]');
+    const filtered = profiles.filter(p => p.id !== profileId);
+    localStorage.setItem('interviewPrep_profiles', JSON.stringify(filtered));
+    this.renderSavedProfiles();
+    this.showToast('Profile deleted');
+  },
+
+  // Render the saved profiles list in the profile modal
+  renderSavedProfiles() {
+    const container = document.getElementById('saved-profiles-list');
+    if (!container) return;
+
+    const profiles = JSON.parse(localStorage.getItem('interviewPrep_profiles') || '[]');
+
+    if (profiles.length === 0) {
+      container.innerHTML = `<div style="font-size: 0.8rem; color: var(--text-muted); padding: var(--spacing-sm)">No saved profiles yet. Click "Save Profile" to create one.</div>`;
+      return;
+    }
+
+    container.innerHTML = profiles.map(p => {
+      const date = new Date(p.savedAt);
+      const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      const skillCount = (p.data.skills || []).length;
+      const interviewCount = (p.data.interviews || []).length;
+
+      return `
+        <div class="saved-profile-item">
+          <div class="saved-profile-info">
+            <span class="saved-profile-name">👤 ${Storage.escapeHtml(p.name)}</span>
+            <span class="saved-profile-meta">${dateStr} at ${timeStr} &middot; ${skillCount} skills &middot; ${interviewCount} companies</span>
+          </div>
+          <div class="saved-profile-actions">
+            <button class="btn btn-primary btn-sm" onclick="App.loadProfileById('${p.id}')">Load</button>
+            <button class="btn btn-ghost btn-sm" onclick="App.deleteProfile('${p.id}')">✕</button>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
 };
 
@@ -632,11 +790,19 @@ function setupCompanySuggest(inputId, suggestionsId) {
       return;
     }
     container.innerHTML = suggestions.map(c => `
-      <div class="skill-suggestion-item" onmousedown="document.getElementById('${inputId}').value='${c.name.replace(/'/g, "\\'")}'; document.getElementById('${suggestionsId}').classList.add('hidden')">
+      <div class="skill-suggestion-item" data-company-name="${Storage.escapeHtml(c.name)}">
         <span class="skill-suggestion-item-name">${Storage.escapeHtml(c.name)}</span>
-        <span class="skill-suggestion-item-meta">${c.sector}</span>
+        <span class="skill-suggestion-item-meta">${Storage.escapeHtml(c.sector)}</span>
       </div>
     `).join('');
+    // Bind click via event delegation to avoid inline handler XSS
+    container.querySelectorAll('.skill-suggestion-item').forEach(item => {
+      item.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        input.value = item.dataset.companyName;
+        container.classList.add('hidden');
+      });
+    });
     container.classList.remove('hidden');
   });
 

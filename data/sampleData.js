@@ -141,7 +141,7 @@ const SampleData = {
 // Seed sample data on first load
 function seedSampleData() {
   // Only seed if no data exists yet
-  if (Storage.getGoals().length > 0 || Storage.getSkills().length > 0 || Storage.getInterviews().length > 0 || Storage.getOffers().length > 0 || (Storage.get('resumes') || []).length > 0) {
+  if (Storage.getGoals().length > 0 || Storage.getSkills().length > 0 || Storage.getInterviews().length > 0 || Storage.getOffers().length > 0 || (Storage.get('resumes') || []).length > 0 || Storage.get('settings') !== null) {
     return;
   }
 

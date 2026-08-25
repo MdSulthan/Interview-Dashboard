@@ -1010,3 +1010,24 @@
   background: var(--color-primary-light);
   color: var(--color-primary);
 }
+
+/* Motivation Widget Enhanced */
+.motivation-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: var(--spacing-sm) 0;
+}
+
+.motivation-tip {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  padding: var(--spacing-xs) 0;
+}
+
+.motivation-streak {
+  font-size: 0.8rem;
+  color: var(--color-warning);
+  font-weight: 600;
+  margin-top: var(--spacing-xs);
+}

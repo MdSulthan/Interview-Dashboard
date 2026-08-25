@@ -5,7 +5,6 @@ const Goals = {
   // Initialize goals module
   init() {
     this.render();
-    this.startQuoteRotation();
   },
 
   // Render the entire goals dashboard
@@ -58,12 +57,50 @@ const Goals = {
     `;
   },
 
-  // Start auto-rotating quotes every 30 seconds
-  startQuoteRotation() {
-    if (this.quoteInterval) clearInterval(this.quoteInterval);
-    this.quoteInterval = setInterval(() => {
-      this.renderMotivation();
-    }, 30000);
+  // Render compact motivation widget (changes daily)
+  renderMotivation() {
+    const container = document.getElementById('motivation-widget');
+    if (!container) return;
+
+    const quotes = SampleData.quotes;
+    // Pick quote based on day of year (same quote all day)
+    const now = new Date();
+    const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+    const dailyIndex = dayOfYear % quotes.length;
+    const quote = quotes[dailyIndex];
+
+    // Daily tip based on day
+    const tips = [
+      'Review one skill topic before bed tonight.',
+      'Practice explaining your projects out loud.',
+      'Research one company on your target list.',
+      'Write down 3 things you learned this week.',
+      'Update your resume with recent achievements.',
+      'Practice a mock interview question today.',
+      'Review feedback from your last interview.'
+    ];
+    const dailyTip = tips[dayOfYear % tips.length];
+
+    // Streak: count consecutive days with activity
+    const lastActivity = Storage.get('lastActivity');
+    let streakText = '';
+    if (lastActivity) {
+      const lastDate = new Date(lastActivity).toDateString();
+      const today = new Date().toDateString();
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      if (lastDate === today || lastDate === yesterday) {
+        streakText = '🔥 You\'re on a streak! Keep it up.';
+      }
+    }
+
+    container.innerHTML = `
+      <div class="card-title">💡 Daily Motivation</div>
+      <div class="motivation-quote">"${quote.text}"</div>
+      <div class="motivation-author" style="text-align: right">— ${quote.author}</div>
+      <div class="motivation-divider"></div>
+      <div class="motivation-tip">📌 <strong>Tip:</strong> ${dailyTip}</div>
+      ${streakText ? `<div class="motivation-streak">${streakText}</div>` : ''}
+    `;
   },
 
   // Render welcome section with progress bar
@@ -194,25 +231,6 @@ const Goals = {
           <span class="metric-value">${offersReceived}</span>
           <span class="metric-label">Offers Received</span>
         </div>
-      </div>
-    `;
-  },
-
-  // Render compact motivation widget with auto-rotate
-  renderMotivation() {
-    const container = document.getElementById('motivation-widget');
-    if (!container) return;
-
-    const quotes = SampleData.quotes;
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    const quote = quotes[randomIndex];
-
-    container.innerHTML = `
-      <div class="card-title">💡 Daily Motivation</div>
-      <div class="motivation-quote">"${quote.text}"</div>
-      <div class="motivation-footer">
-        <span class="motivation-author">— ${quote.author}</span>
-        <button class="btn btn-ghost btn-sm" onclick="Goals.renderMotivation()" title="New quote">🔄</button>
       </div>
     `;
   },

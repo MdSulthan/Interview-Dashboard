@@ -274,6 +274,16 @@ const Resumes = {
         data: e.target.result
       };
 
+      // Warn early if encoded file is large relative to available storage
+      const encodedSize = e.target.result.length * 2; // UTF-16 = 2 bytes per char
+      const encodedMB = (encodedSize / (1024 * 1024)).toFixed(1);
+      if (encodedSize > 3 * 1024 * 1024) {
+        App.showAlert(
+          `Warning: This file will use ~${encodedMB}MB of browser storage (limit ~10MB total). Consider using a smaller or compressed PDF.`,
+          'warning'
+        );
+      }
+
       document.getElementById('file-upload-placeholder').classList.add('hidden');
       document.getElementById('file-upload-selected').classList.remove('hidden');
       document.getElementById('file-upload-filename').textContent = file.name + ' (' + this.formatFileSize(file.size) + ')';
@@ -305,10 +315,15 @@ const Resumes = {
     const file = event.dataTransfer.files[0];
     if (file) {
       const input = document.getElementById('resume-file');
-      const dt = new DataTransfer();
-      dt.items.add(file);
-      input.files = dt.files;
-      this.handleFileSelect({ target: input });
+      try {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        input.files = dt.files;
+        this.handleFileSelect({ target: input });
+      } catch (e) {
+        // Fallback for browsers that don't support DataTransfer constructor (older Safari)
+        this.handleFileSelect({ target: { files: [file] } });
+      }
     }
   },
 
@@ -352,6 +367,27 @@ const Resumes = {
       resumeData.fileSize = this.pendingFile.size;
       resumeData.fileType = this.pendingFile.type;
       resumeData.fileData = this.pendingFile.data;
+    }
+
+    // Pre-check: estimate if this save would exceed localStorage quota
+    if (this.pendingFile && this.pendingFile.data) {
+      const newDataSize = this.pendingFile.data.length * 2; // UTF-16 = 2 bytes per char
+      let currentUsage = 0;
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        currentUsage += (localStorage.getItem(key) || '').length * 2;
+      }
+      const maxSize = 10 * 1024 * 1024; // ~10MB
+      const projectedUsage = currentUsage + newDataSize;
+      if (projectedUsage > maxSize * 0.95) {
+        const fileSizeMB = (newDataSize / (1024 * 1024)).toFixed(1);
+        const usedMB = (currentUsage / (1024 * 1024)).toFixed(1);
+        App.showAlert(
+          `This file (${fileSizeMB}MB encoded) would exceed browser storage limits (${usedMB}MB of ~10MB used). Please use a smaller file or delete old resumes to free space.`,
+          'error'
+        );
+        return;
+      }
     }
 
     if (isEdit) {
