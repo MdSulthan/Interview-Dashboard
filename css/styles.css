@@ -1477,6 +1477,43 @@ body.has-bg-image .resume-card-v2 {
   outline: none;
 }
 
+/* Date/datetime inputs - ensure native calendar picker stays visible and clickable */
+.form-input[type="date"],
+.form-input[type="datetime-local"] {
+  background-clip: border-box;
+  background-image: none;
+  border: 2px solid var(--border-color);
+  position: relative;
+}
+
+.form-input[type="date"]:hover,
+.form-input[type="datetime-local"]:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.2), 0 0 4px rgba(236, 72, 153, 0.15);
+}
+
+.form-input[type="date"]:focus,
+.form-input[type="datetime-local"]:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.3), 0 0 4px rgba(236, 72, 153, 0.2);
+}
+
+/* Style the native calendar picker icon */
+.form-input[type="date"]::-webkit-calendar-picker-indicator,
+.form-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.7;
+  filter: invert(0.7);
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.form-input[type="date"]::-webkit-calendar-picker-indicator:hover,
+.form-input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  background-color: rgba(168, 85, 247, 0.15);
+}
+
 /* Textarea Modern */
 .form-textarea {
   border: 2px solid transparent;
